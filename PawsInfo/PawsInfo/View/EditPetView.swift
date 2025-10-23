@@ -13,6 +13,7 @@ struct EditPetView: View {
     
     @Bindable var pet: Pet
     @State private var photosPickerItem: PhotosPickerItem?
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         Form {
@@ -48,7 +49,7 @@ struct EditPetView: View {
             // Button
             
             Button {
-                
+                dismiss()
             } label: {
                 Text("Save")
                     .padding()
@@ -61,6 +62,7 @@ struct EditPetView: View {
         .listStyle(.plain)
         .navigationTitle("Edit \(self.pet.name)")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden()
         .onChange(of: self.photosPickerItem) { oldValue, newValue in
             Task {
                 self.pet.image = try? await photosPickerItem?.loadTransferable(type: Data.self)
