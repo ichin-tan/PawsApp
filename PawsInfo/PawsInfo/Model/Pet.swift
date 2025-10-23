@@ -11,7 +11,7 @@ import SwiftUI
 @Model
 class Pet {
     var name: String
-    var image: Data?
+    @Attribute(.externalStorage) var image: Data?
     
     init(name: String, image: Data? = nil) {
         self.name = name
